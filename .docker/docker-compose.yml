@@ -1,0 +1,21 @@
+version: '2'
+services:
+
+  node:
+    image: wodby/node:$NODE_TAG
+    working_dir: /app
+    labels:
+      - 'traefik.backend=node'
+      - 'traefik.port=3000'
+      - 'traefik.frontend.rule=Host:app.${PROJECT_BASE_URL}'
+    expose:
+      - "3000"
+
+  traefik:
+    image: traefik
+    restart: unless-stopped
+    command: -c /dev/null --web --docker --logLevel=INFO
+    ports:
+      - '80:80'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
