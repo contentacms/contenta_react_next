@@ -13,7 +13,7 @@
 # What's included?
 
 1. Local development environment based on docker.
-2. Set of make files for faster local development.
+2. Set of make commands for faster local development.
 3. `Eslint` support.
 4. Configured `Next.js` application.
 5. `Scss` framework with ability to put `.scss` files per component.
