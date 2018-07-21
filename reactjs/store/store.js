@@ -16,15 +16,21 @@ import reducers from './reducers';
 // Create a saga middleware.
 const sagaMiddleware = createSagaMiddleware();
 
-// Build store.
-// TODO: Disable dev tools on production.
-const store = createStore(
-  reducers,
-  {},
-  composeWithDevTools(applyMiddleware(sagaMiddleware)),
-);
+function configureStore(initialState) {
+  // Build store.
+  // TODO: Disable dev tools on production.
+  const store = createStore(
+    reducers,
+    initialState,
+    composeWithDevTools(applyMiddleware(sagaMiddleware)),
+  );
 
-// Start watching all sagas.
-sagaMiddleware.run(sagas);
+  store.runSagaTask = () => {
+    store.sagaTask = sagaMiddleware.run(sagas);
+  };
 
-export default store;
+  store.runSagaTask();
+  return store;
+}
+
+export default configureStore;

@@ -1,5 +1,4 @@
 import React from 'react';
-import Application from '../application';
 import HelloFriend from '../components/HelloFriend';
 
 class Page extends React.Component {
@@ -14,4 +13,4 @@ class Page extends React.Component {
   }
 }
 
-export default Application(Page);
+export default Page;
