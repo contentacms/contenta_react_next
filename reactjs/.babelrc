@@ -1,5 +1,13 @@
 {
   "presets": [
-    "next/babel"
-  ]
+    "next/babel",
+  ],
+  "env": {
+    "development": {
+      "plugins": ["inline-dotenv"]
+    },
+    "production": {
+      "plugins": ["transform-inline-environment-variables"]
+    }
+  }
 }

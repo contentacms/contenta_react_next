@@ -1,7 +1,7 @@
 const globImporter = require('node-sass-glob-importer');
 
 module.exports = {
-  webpack: (config => {
+  webpack: config => {
     config.module.rules.push(
       {
         test: /\.(css|scss)/,
@@ -30,5 +30,5 @@ module.exports = {
     );
 
     return config;
-  }),
+  },
 };

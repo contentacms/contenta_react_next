@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import Package from '../../package';
-import inlineCSS from '../../styles/theme.scss';
+import Package from '../../../package';
+import inlineCSS from '../../../styles/theme.scss';
 
 const HtmlHead = () => {
   let stylesheets;
@@ -19,7 +19,7 @@ const HtmlHead = () => {
   return (
     <Head>
       <title>
-SystemSeed Technical Assessment
+Contenta React.js Umami application
       </title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />

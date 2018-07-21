@@ -3,9 +3,9 @@ import App, { Container } from 'next/app';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
-import HtmlHead from '../components/HtmlHead';
+import HtmlHead from '../components/01_atoms/HtmlHead';
 import configureStore from '../store/store';
-import '../components/PageProgressBar'; // Beautiful page transition indicator.
+import '../components/01_atoms/PageProgressBar'; // Beautiful page transition indicator.
 
 class Application extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -30,7 +30,7 @@ class Application extends App {
   }
 
   render() {
-    const { Component, pageProps, store } = this.props;
+    const { Component, store, ...pageProps } = this.props;
     return (
       <Container>
         <Provider store={store}>

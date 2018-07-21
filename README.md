@@ -3,7 +3,7 @@
 1. Clone git repo locally, then
 
     ```
-    cd nextjs-boilerplate
+    cd contenta_react_next
     make install
     make up
     ```
