@@ -30,7 +30,7 @@ class Application extends App {
   }
 
   render() {
-    const { Component, pageProps, store } = this.props;
+    const { Component, store, ...pageProps } = this.props;
     return (
       <Container>
         <Provider store={store}>
