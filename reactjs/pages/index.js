@@ -1,5 +1,9 @@
 import React from 'react';
 import Layout from '../components/04_templates/GlobalLayout';
+import PromotedRecipes from '../components/02_moleculas/PromotedRecipes';
+import MonthEdition from '../components/02_moleculas/MonthEdition';
+import HomeWidgets from '../components/02_moleculas/HomeWidgets';
+import RecipesList from '../components/02_moleculas/RecipiesList';
 import request from '../utils/request';
 import * as transforms from '../utils/transforms';
 
@@ -7,19 +11,28 @@ class Page extends React.Component {
   static async getInitialProps() {
     let initialProps = {
       promotedRecipes: [],
+      latestRecipes: [],
     };
 
-    /* response = await request
-      .get('/recipes')
-      .query({
-        'sort': '-created',
-        'page[limit]': 4,
-        'include': 'image,image.thumbnail',
-        'fields[recipes]': 'title,difficulty,image',
-        'fields[images]': 'name,thumbnail',
-        'fields[files]': 'filename,url'
-      }); */
+    // TODO: Move to API & run in parallel.
 
+    try {
+      const response = await request
+        .get('/recipes')
+        .query({
+          'include': 'image,image.thumbnail',
+          'fields[recipes]': 'id,title,image',
+          'fields[images]': 'thumbnail',
+          'fields[files]': 'url',
+          'sort': '-created',
+          'page[limit]': 4,
+        });
+
+      // Transform backend data into standardized frontend format.
+      initialProps.latestRecipes = response.body.data.map(recipe => transforms.recipe(recipe));
+    } catch (e) {
+      // TODO.
+    }
 
     try {
       const response = await request
@@ -45,9 +58,15 @@ class Page extends React.Component {
   }
 
   render() {
-    // console.log(this.props.promotedRecipes);
+    const { promotedRecipes, latestRecipes } = this.props;
     return (
-      <Layout />);
+      <Layout>
+        <PromotedRecipes recipes={promotedRecipes} />
+        <MonthEdition/>
+        <HomeWidgets/>
+        <RecipesList recipes={latestRecipes}/>
+      </Layout>
+    );
   }
 }
 

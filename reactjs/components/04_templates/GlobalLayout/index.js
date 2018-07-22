@@ -6,17 +6,9 @@ import GlobalFooter from '../../03_organisms/GlobalFooter';
 const GlobalLayout = ({ children }) => (
   <Fragment>
     <GlobalHeader />
-
     <div className="content">
-      <Container>
-        <Row>
-          <Col>
-            {children}
-          </Col>
-        </Row>
-      </Container>
+      {children}
     </div>
-
     <GlobalFooter />
   </Fragment>
 );
