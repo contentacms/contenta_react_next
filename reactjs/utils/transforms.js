@@ -7,5 +7,6 @@ export const recipe = data => ({
   title: data.title,
   totalTime: data.totalTime || 0,
   preparationTime: data.preparationTime || 0,
-  image: data.image.thumbnail.url || '',
+  image: data.image && data.image.thumbnail && data.image.thumbnail.url || '',
+  category: data.category && data.category.name || '',
 });

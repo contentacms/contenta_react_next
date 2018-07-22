@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Row, Col, Card, CardImg, CardBody, CardTitle } from 'reactstrap';
+import { Container, Row, Col, Card, CardImg, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 
 const RecipesList = ({ recipes }) => (
   <Container>
@@ -18,6 +18,9 @@ const RecipesList = ({ recipes }) => (
           <Card>
             <CardImg top width="100%" src={recipe.image} alt={recipe.title}/>
             <CardBody>
+              {recipe.category.length > 0 &&
+              <CardSubtitle>{recipe.category}</CardSubtitle>
+              }
               <CardTitle>{recipe.title}</CardTitle>
             </CardBody>
           </Card>
@@ -33,6 +36,7 @@ RecipesList.propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,
     image: PropTypes.string,
+    category: PropTypes.string,
   })).isRequired,
 };
 

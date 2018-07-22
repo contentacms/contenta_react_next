@@ -20,8 +20,9 @@ class Page extends React.Component {
       const response = await request
         .get('/recipes')
         .query({
-          'include': 'image,image.thumbnail',
-          'fields[recipes]': 'id,title,image',
+          'include': 'category,image,image.thumbnail',
+          'fields[recipes]': 'id,title,image,category',
+          'fields[categories]': 'name',
           'fields[images]': 'thumbnail',
           'fields[files]': 'url',
           'sort': '-created',
@@ -38,8 +39,9 @@ class Page extends React.Component {
       const response = await request
         .get('/recipes')
         .query({
-          'include': 'image,image.thumbnail',
-          'fields[recipes]': 'id,title,image',
+          'include': 'category,image,image.thumbnail',
+          'fields[recipes]': 'id,category,title,image',
+          'fields[categories]': 'name',
           'fields[images]': 'thumbnail',
           'fields[files]': 'url',
           'filter[isPromoted][value]': 1,
