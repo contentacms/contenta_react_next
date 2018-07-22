@@ -7,7 +7,7 @@ import RecipesList from '../components/02_moleculas/RecipiesList';
 import request from '../utils/request';
 import * as transforms from '../utils/transforms';
 
-class Page extends React.Component {
+class HomePage extends React.Component {
   static async getInitialProps() {
     let initialProps = {
       promotedRecipes: [],
@@ -20,7 +20,7 @@ class Page extends React.Component {
       const response = await request
         .get('/recipes')
         .query({
-          'include': 'category,image,image.thumbnail',
+          'include': 'image,image.thumbnail',
           'fields[recipes]': 'id,title,image,category',
           'fields[categories]': 'name',
           'fields[images]': 'thumbnail',
@@ -72,4 +72,4 @@ class Page extends React.Component {
   }
 }
 
-export default Page;
+export default HomePage;

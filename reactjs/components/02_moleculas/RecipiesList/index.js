@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col, Card, CardImg, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import CardAsLink from '../../01_atoms/Bootstrap/CardAsLink';
 
 const RecipesList = ({ recipes }) => (
   <Container>
@@ -15,7 +16,7 @@ const RecipesList = ({ recipes }) => (
     <Row>
       {recipes.map(recipe => (
         <Col md={6} key={recipe.id}>
-          <Card>
+          <CardAsLink href={recipe.url}>
             <CardImg top width="100%" src={recipe.image} alt={recipe.title}/>
             <CardBody>
               {recipe.category.length > 0 &&
@@ -23,7 +24,7 @@ const RecipesList = ({ recipes }) => (
               }
               <CardTitle>{recipe.title}</CardTitle>
             </CardBody>
-          </Card>
+          </CardAsLink>
         </Col>
       ))}
     </Row>
