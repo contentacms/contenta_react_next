@@ -47,6 +47,9 @@ lint:
 	@echo "${YELLOW}Checking coding styles...${COLOR_END}"
 	docker-compose run node yarn eslint --fix
 
+deploy:
+	cd reactjs && now
+
 # https://stackoverflow.com/a/6273809/1826109
 %:
 	@:

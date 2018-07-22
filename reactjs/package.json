@@ -47,5 +47,15 @@
     "start": "PORT=3000 NODE_ENV=production node server.js",
     "start:dev": "PORT=3000 NODE_ENV=development node server.js",
     "eslint": "./node_modules/.bin/eslint ./"
+  },
+  "now": {
+    "name": "contenta-react-next",
+    "alias": "contenta-react-next",
+    "public": true,
+    "type": "npm",
+    "env": {
+      "BACKEND_URL": "https://live-contentacms.pantheonsite.io",
+      "JSONAPI_PREFIX": "/api"
+    }
   }
 }

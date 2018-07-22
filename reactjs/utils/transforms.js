@@ -11,5 +11,10 @@ export const recipe = data => ({
   totalTime: data.totalTime || 0,
   preparationTime: data.preparationTime || 0,
   image: data.image && data.image.thumbnail && data.image.thumbnail.url || '',
-  category: data.category && data.category.name || '',
+  category: data.category && data.category || {},
+  difficulty: data.difficulty || '',
+  serves: data.numberOfServes || 0,
+  ingredients: data.ingredients || [],
+  instructions: data.instructions || '',
+  tags: data.tags || [],
 });

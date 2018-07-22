@@ -30,3 +30,4 @@
 - `make down` - completely stops the application and removes docker containers.
 - `make restart` - restarts the application containers.
 - `make lint` - checks coding standards and fixes issues if possible.
+- `make deploy` - deploys the application to Now server (**NOTE:** You'll need to have [Now CLI](https://zeit.co/docs/features/now-cli) installed)

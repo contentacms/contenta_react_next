@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Row, Col } from 'reactstrap';
 import Layout from '../components/04_templates/GlobalLayout';
 import request from '../utils/request';
 import * as transforms from '../utils/transforms';
@@ -20,7 +21,8 @@ class RecipePage extends React.Component {
         .query({
           'include': 'category,tags,image,image.thumbnail',
           'fields[recipes]': 'id,title,image,category,difficulty,ingredients,instructions,numberOfServices,tags,totalTime',
-          'fields[categories]': 'name',
+          'fields[categories]': 'id,name',
+          'fields[tags]': 'id,name',
           'fields[images]': 'thumbnail',
           'fields[files]': 'url',
         });
@@ -41,7 +43,43 @@ class RecipePage extends React.Component {
     const { recipe } = this.props;
     return (
       <Layout>
+        <Container>
 
+          <Row>
+            <h1>{recipe.title}</h1>
+          </Row>
+
+          <Row>
+            <Col md={6}>
+              <img src={recipe.image} alt={recipe.title} width="100%" />
+            </Col>
+
+            <Col md={6}>
+              <Row>
+                <Col md={6}>{recipe.preparationTime}</Col>
+                <Col md={6}>{recipe.totalTime}</Col>
+                <Col md={6}>{recipe.difficulty}</Col>
+                <Col md={6}>{recipe.serves}</Col>
+              </Row>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col>
+              <h2>What you'll need to make a dish</h2>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col md={6}>
+              {recipe.ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </Col>
+            <Col md={6}>{recipe.instructions}</Col>
+          </Row>
+
+          </Container>
       </Layout>
     );
   }
