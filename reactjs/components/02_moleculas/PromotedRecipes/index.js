@@ -13,8 +13,8 @@ const PromotedRecipes = ({ recipes }) => (
             <CardImg top width="100%" src={recipe.image} alt={recipe.title}
                      className={!index ? 'd-block d-md-none' : ''}/>
             <CardBody>
-              {recipe.category.length > 0 &&
-              <CardSubtitle>{recipe.category}</CardSubtitle>
+              {recipe.category &&
+              <CardSubtitle>{recipe.category.name}</CardSubtitle>
               }
               <CardTitle>{recipe.title}</CardTitle>
             </CardBody>
@@ -34,7 +34,10 @@ PromotedRecipes.propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,
     image: PropTypes.string,
-    category: PropTypes.string,
+    category: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+    }),
   })).isRequired,
 };
 

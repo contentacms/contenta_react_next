@@ -19,8 +19,8 @@ const RecipesList = ({ recipes }) => (
           <CardAsLink href={recipe.url}>
             <CardImg top width="100%" src={recipe.image} alt={recipe.title}/>
             <CardBody>
-              {recipe.category.length > 0 &&
-              <CardSubtitle>{recipe.category}</CardSubtitle>
+              {recipe.category &&
+              <CardSubtitle>{recipe.category.name}</CardSubtitle>
               }
               <CardTitle>{recipe.title}</CardTitle>
             </CardBody>
@@ -37,7 +37,10 @@ RecipesList.propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,
     image: PropTypes.string,
-    category: PropTypes.string,
+    category: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+    }),
   })).isRequired,
 };
 

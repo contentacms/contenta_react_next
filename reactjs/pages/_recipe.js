@@ -46,7 +46,20 @@ class RecipePage extends React.Component {
         <Container>
 
           <Row>
-            <h1>{recipe.title}</h1>
+            <Col md={8}>
+              <h1>{recipe.title}</h1>
+            </Col>
+
+            <Col md={4}>
+              <div>{recipe.category.name}</div>
+              <div>
+                {recipe.tags.map((tag, index) => (
+                  <span key={tag.id}>
+                    {tag.name}{index === recipe.tags.length - 1 ? '' : ', '}
+                  </span>
+                ))}
+              </div>
+            </Col>
           </Row>
 
           <Row>

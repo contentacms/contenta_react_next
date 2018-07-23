@@ -21,7 +21,7 @@ class HomePage extends React.Component {
         .get('/recipes')
         .query({
           'include': 'image,image.thumbnail',
-          'fields[recipes]': 'id,title,image,category',
+          'fields[recipes]': 'id,title,image',
           'fields[categories]': 'name',
           'fields[images]': 'thumbnail',
           'fields[files]': 'url',
