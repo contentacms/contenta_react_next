@@ -6,6 +6,9 @@ $(shell ! test -e \.\/.docker\/docker-compose\.override\.yml && cat \.\/.docker\
 # Create a .env file if not exists and include default env variables.
 $(shell ! test -e \.env && cat \.env.default > \.env)
 
+# Create a .env file for react.js application if not exists with default values.
+$(shell ! test -e \.\/reactjs\/.env && cat \.\/reactjs\/.env.default > \.\/reactjs\/.env)
+
 # Make all variables from the file available here.
 include .env
 
@@ -43,6 +46,9 @@ install:
 lint:
 	@echo "${YELLOW}Checking coding styles...${COLOR_END}"
 	docker-compose run node yarn eslint --fix
+
+deploy:
+	cd reactjs && now
 
 # https://stackoverflow.com/a/6273809/1826109
 %:

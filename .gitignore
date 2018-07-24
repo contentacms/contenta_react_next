@@ -11,3 +11,6 @@ reactjs/yarn.error.log
 # Next.js / React folders.
 reactjs/node_modules
 reactjs/.next
+
+# Local .env file
+reactjs/.env

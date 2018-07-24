@@ -1,13 +1,17 @@
 {
   "name": "SystemSeed",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
+    "babel-plugin-inline-dotenv": "^1.1.2",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
+    "bootstrap": "^4.1.2",
     "compression": "^1.7.3",
     "express": "^4.16.3",
     "next": "^6.1.1",
     "next-redux-saga": "^3.0.0-beta.1",
     "next-redux-wrapper": "^2.0.0",
+    "next-routes": "^1.4.2",
     "node-sass": "^4.9.2",
     "node-sass-glob-importer": "^5.2.0",
     "nprogress": "^0.2.0",
@@ -16,10 +20,15 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
+    "reactstrap": "^6.3.0",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
     "redux-saga": "^0.16.0",
     "sass-loader": "^7.0.3",
+    "superagent": "^3.8.3",
+    "superagent-defaults": "^0.1.14",
+    "superagent-jsonapify": "^1.4.5",
+    "superagent-prefix": "^0.0.2",
     "webpack": "^4.16.1"
   },
   "devDependencies": {
@@ -38,5 +47,15 @@
     "start": "PORT=3000 NODE_ENV=production node server.js",
     "start:dev": "PORT=3000 NODE_ENV=development node server.js",
     "eslint": "./node_modules/.bin/eslint ./"
+  },
+  "now": {
+    "name": "contenta-react-next",
+    "alias": "contenta-react-next",
+    "public": true,
+    "type": "npm",
+    "env": {
+      "BACKEND_URL": "https://live-contentacms.pantheonsite.io",
+      "JSONAPI_PREFIX": "/api"
+    }
   }
 }
