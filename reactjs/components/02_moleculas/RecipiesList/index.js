@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Row, Col, Card, CardImg, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import { Container, Row, Col, CardImg, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import CardAsLink from '../../01_atoms/Bootstrap/CardAsLink';
 
-const RecipesList = ({ recipes }) => (
+const RecipesList = ({ recipes, cols }) => (
   <Container>
 
     <Row>
@@ -15,7 +15,7 @@ const RecipesList = ({ recipes }) => (
 
     <Row>
       {recipes.map(recipe => (
-        <Col md={6} key={recipe.id}>
+        <Col md={Math.round(12 / cols)} key={recipe.id}>
           <CardAsLink href={recipe.url}>
             <CardImg top width="100%" src={recipe.image} alt={recipe.title}/>
             <CardBody>
@@ -42,6 +42,11 @@ RecipesList.propTypes = {
       name: PropTypes.string,
     }),
   })).isRequired,
+  cols: PropTypes.number,
+};
+
+RecipesList.defaultProps = {
+  cols: 2,
 };
 
 export default RecipesList;
