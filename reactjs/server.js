@@ -1,6 +1,7 @@
 const compression = require('compression');
 const express = require('express');
 const nextjs = require('next');
+const routes = require('./routes');
 const sass = require('node-sass');
 const globImporter = require('node-sass-glob-importer');
 
@@ -9,7 +10,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const port = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = nextjs({ dev });
-const handler = app.getRequestHandler();
+const handler = routes.getRequestHandler(app);
 
 app.prepare()
   .then(() => {
