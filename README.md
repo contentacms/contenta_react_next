@@ -1,3 +1,7 @@
+# Demo
+
+Live demo is available at [https://contenta-react-next.now.sh](https://contenta-react-next.now.sh).
+
 # Installation
 
 1. Clone git repo locally, then
