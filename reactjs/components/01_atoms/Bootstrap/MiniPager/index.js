@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { Pagination, PaginationItem, PaginationLink, Container, Row, Col } from 'reactstrap';
 import { withRouter } from 'next/router';
 import { Router } from '../../../../routes';
 
@@ -40,15 +40,26 @@ class MiniPager extends React.Component {
   render() {
     // TODO: Don't render pager when nothing is allowed.
     const { prevPageAllowed, nextPageAllowed } = this.props;
+
+    if (!prevPageAllowed && !nextPageAllowed) {
+      return null;
+    }
+
     return (
-      <Pagination>
-        <PaginationItem disabled={!prevPageAllowed} onClick={this.handlePrevPageClick}>
-          <PaginationLink previous/>
-        </PaginationItem>
-        <PaginationItem disabled={!nextPageAllowed} onClick={this.handleNextPageClick}>
-          <PaginationLink next/>
-        </PaginationItem>
-      </Pagination>
+      <Container>
+        <Row>
+          <Col>
+            <Pagination className="mini-pager">
+              <PaginationItem disabled={!prevPageAllowed} onClick={this.handlePrevPageClick}>
+                <PaginationLink previous/>
+              </PaginationItem>
+              <PaginationItem disabled={!nextPageAllowed} onClick={this.handleNextPageClick}>
+                <PaginationLink next/>
+              </PaginationItem>
+            </Pagination>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
