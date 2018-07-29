@@ -1,9 +1,9 @@
 const compression = require('compression');
 const express = require('express');
 const nextjs = require('next');
-const routes = require('./routes');
 const sass = require('node-sass');
 const globImporter = require('node-sass-glob-importer');
+const routes = require('./routes');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -53,7 +53,7 @@ app.prepare()
 
     expressServer.get('*', (req, res) => handler(req, res));
 
-    expressServer.listen(port, err => {
+    expressServer.listen(port, (err) => {
       if (err) throw err;
       console.log('> Ready on http://app.docker.localhost');
     });

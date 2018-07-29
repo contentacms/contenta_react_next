@@ -5,7 +5,6 @@ import { withRouter } from 'next/router';
 import { Router } from '../../../../routes';
 
 class MiniPager extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -14,10 +13,10 @@ class MiniPager extends React.Component {
   }
 
   handlePrevPageClick() {
-    const { router, prevPageAllowed } = this.props;
+    const { router, hasPrevPage } = this.props;
     const currentPage = router.query.page ? parseInt(router.query.page, 10) : 0;
 
-    if (!prevPageAllowed) {
+    if (!hasPrevPage) {
       return;
     }
 
@@ -26,10 +25,10 @@ class MiniPager extends React.Component {
   }
 
   handleNextPageClick() {
-    const { router, nextPageAllowed } = this.props;
+    const { router, hasNextPage } = this.props;
     const currentPage = router.query.page ? parseInt(router.query.page, 10) : 0;
 
-    if (!nextPageAllowed) {
+    if (!hasNextPage) {
       return;
     }
 
@@ -38,10 +37,10 @@ class MiniPager extends React.Component {
   }
 
   render() {
-    // TODO: Don't render pager when nothing is allowed.
-    const { prevPageAllowed, nextPageAllowed } = this.props;
+    const { hasPrevPage, hasNextPage } = this.props;
 
-    if (!prevPageAllowed && !nextPageAllowed) {
+    // Don't render the pager if both next & prev page links can't be displayed.
+    if (!hasPrevPage && !hasNextPage) {
       return null;
     }
 
@@ -50,11 +49,11 @@ class MiniPager extends React.Component {
         <Row>
           <Col>
             <Pagination className="mini-pager">
-              <PaginationItem disabled={!prevPageAllowed} onClick={this.handlePrevPageClick}>
-                <PaginationLink previous/>
+              <PaginationItem disabled={!hasPrevPage} onClick={this.handlePrevPageClick}>
+                <PaginationLink previous />
               </PaginationItem>
-              <PaginationItem disabled={!nextPageAllowed} onClick={this.handleNextPageClick}>
-                <PaginationLink next/>
+              <PaginationItem disabled={!hasNextPage} onClick={this.handleNextPageClick}>
+                <PaginationLink next />
               </PaginationItem>
             </Pagination>
           </Col>
@@ -65,13 +64,13 @@ class MiniPager extends React.Component {
 }
 
 MiniPager.propTypes = {
-  prevPageAllowed: PropTypes.bool,
-  nextPageAllowed: PropTypes.bool,
+  hasPrevPage: PropTypes.bool,
+  hasNextPage: PropTypes.bool,
 };
 
 MiniPager.defaultProps = {
-  prevPageAllowed: true,
-  nextPageAllowed: true,
+  hasPrevPage: true,
+  hasNextPage: true,
 };
 
 export default withRouter(MiniPager);

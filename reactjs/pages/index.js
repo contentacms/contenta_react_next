@@ -1,59 +1,48 @@
-import React from 'react';
-import Layout from '../components/04_templates/GlobalLayout';
+import React, { Fragment } from 'react';
 import PromotedRecipes from '../components/02_moleculas/PromotedRecipes';
 import MonthEdition from '../components/02_moleculas/MonthEdition';
 import HomeWidgets from '../components/02_moleculas/HomeWidgets';
 import RecipesList from '../components/02_moleculas/RecipiesList';
-import request from '../utils/request';
-import * as transforms from '../utils/transforms';
+import * as recipeApi from '../api/recipe';
 
 class HomePage extends React.Component {
-  static async getInitialProps() {
-    let initialProps = {
+  static async getInitialProps({ res }) {
+    const initialProps = {
       promotedRecipes: [],
       latestRecipes: [],
+      statusCode: 200,
     };
 
-    // TODO: Move to API & run in parallel.
+    // TODO: Run in parallel.
 
     try {
-      const response = await request
-        .get('/recipes')
-        .query({
-          'include': 'image,image.thumbnail',
-          'fields[recipes]': 'id,title,image',
-          'fields[categories]': 'name',
-          'fields[images]': 'thumbnail',
-          'fields[files]': 'url',
-          'sort': '-created',
-          'page[limit]': 4,
-        });
+      // Load 3 latest promoted recipes.
+      const data = await recipeApi.getPromoted(3);
+      initialProps.promotedRecipes = data.recipes || [];
+    }
+    catch (e) {
+      // Pass status code as internal properly. It is being checked inside of
+      // render() method of _app.js.
+      initialProps.statusCode = 500;
 
-      // Transform backend data into standardized frontend format.
-      initialProps.latestRecipes = response.body.data.map(recipe => transforms.recipe(recipe));
-    } catch (e) {
-      // TODO.
+      // In case of Server Side rendering we want the server to throw the
+      // correct error code.
+      if (res) res.statusCode = 500;
     }
 
     try {
-      const response = await request
-        .get('/recipes')
-        .query({
-          'include': 'category,image,image.thumbnail',
-          'fields[recipes]': 'id,category,title,image',
-          'fields[categories]': 'name',
-          'fields[images]': 'thumbnail',
-          'fields[files]': 'url',
-          'filter[isPromoted][value]': 1,
-          'filter[isPublished][value]': 1,
-          'sort': '-created',
-          'page[limit]': 3,
-        });
+      // Load 4 latest recipe without any filters.
+      const data = await recipeApi.getAll(4);
+      initialProps.latestRecipes = data.recipes || [];
+    }
+    catch (e) {
+      // Pass status code as internal properly. It is being checked inside of
+      // render() method of _app.js.
+      initialProps.statusCode = 500;
 
-      // Transform backend data into standardized frontend format.
-      initialProps.promotedRecipes = response.body.data.map(recipe => transforms.recipe(recipe));
-    } catch (e) {
-      // TODO.
+      // In case of Server Side rendering we want the server to throw the
+      // correct error code.
+      if (res) res.statusCode = 500;
     }
 
     return initialProps;
@@ -62,12 +51,12 @@ class HomePage extends React.Component {
   render() {
     const { promotedRecipes, latestRecipes } = this.props;
     return (
-      <Layout>
+      <Fragment>
         <PromotedRecipes recipes={promotedRecipes} />
-        <MonthEdition/>
-        <HomeWidgets/>
-        <RecipesList recipes={latestRecipes}/>
-      </Layout>
+        <MonthEdition />
+        <HomeWidgets />
+        <RecipesList recipes={latestRecipes} />
+      </Fragment>
     );
   }
 }

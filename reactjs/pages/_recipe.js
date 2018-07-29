@@ -1,40 +1,33 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import Layout from '../components/04_templates/GlobalLayout';
-import request from '../utils/request';
-import * as transforms from '../utils/transforms';
+import * as recipeApi from '../api/recipe';
 
 class RecipePage extends React.Component {
-  static async getInitialProps({ query }) {
+  static async getInitialProps({ query, res }) {
     let initialProps = {
-      recipe: {}
+      recipe: {},
+      statusCode: 200,
     };
 
     // Get recipe's ID from the url.
     const recipeId = query.recipe || '';
 
-    // TODO: Move to API & run in parallel.
-
     try {
-      const response = await request
-        .get(`/recipes/${recipeId}`)
-        .query({
-          'include': 'category,tags,image,image.thumbnail',
-          'fields[recipes]': 'id,title,image,category,difficulty,ingredients,instructions,numberOfServices,tags,totalTime',
-          'fields[categories]': 'id,name',
-          'fields[tags]': 'id,name',
-          'fields[images]': 'thumbnail',
-          'fields[files]': 'url',
-        });
+      // Recipe data about currently opened recipe.
+      const data = await recipeApi.get(recipeId);
 
-      // Transform backend data into standardized frontend format.
-      initialProps.recipe = transforms.recipe(response.body.data);
-      console.log(response.body.data);
-    } catch (e) {
-      // TODO.
+      // Merge initially defined props with response from the backend.
+      initialProps = { ...initialProps, ...data };
     }
+    catch (e) {
+      // Pass status code as internal properly. It is being checked inside of
+      // render() method of _app.js.
+      initialProps.statusCode = 500;
 
-    console.log(initialProps.recipe);
+      // In case of Server Side Rendering, we want the server to throw the
+      // correct error code.
+      if (res) res.statusCode = 500;
+    }
 
     return initialProps;
   }
@@ -42,7 +35,7 @@ class RecipePage extends React.Component {
   render() {
     const { recipe } = this.props;
     return (
-      <Layout>
+      <Fragment>
         <Container>
 
           <Row>
@@ -92,8 +85,8 @@ class RecipePage extends React.Component {
             <Col md={6}>{recipe.instructions}</Col>
           </Row>
 
-          </Container>
-      </Layout>
+        </Container>
+      </Fragment>
     );
   }
 }

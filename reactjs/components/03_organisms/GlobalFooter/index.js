@@ -9,7 +9,7 @@ const GlobalFooter = () => (
           <strong>Umami magazine & Umami publications</strong> is a fictional
           magazine and publisher for illustrative purposes only.
         </Col>
-        <Col md={3}/>
+        <Col md={3} />
         <Col md={3}>
           © 2018 Terms & Conditions
         </Col>

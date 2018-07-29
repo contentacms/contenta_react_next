@@ -6,7 +6,7 @@ import { Link } from '../../../../routes';
 const CardAsLink = ({ href, ...props }) => (
   <Link to={href}>
     <a className="card-link">
-      <Card {...props}  />
+      <Card {...props} />
     </a>
   </Link>
 );
