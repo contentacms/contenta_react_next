@@ -1,11 +1,10 @@
 import React from 'react';
-import { NavbarBrand } from 'reactstrap';
 import { Link } from '../../../routes';
 
 const Logo = () => (
     <Link to="/">
       <a className="logo">
-        <img src="/static/logo.png" alt="Home" rel="index" />
+        <img src="/static/logo.svg" alt="Home" rel="index" />
       </a>
     </Link>
 );
