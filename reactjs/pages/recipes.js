@@ -2,62 +2,44 @@ import React from 'react';
 import Layout from '../components/04_templates/GlobalLayout';
 import RecipesList from '../components/02_moleculas/RecipiesList';
 import MiniPager from '../components/01_atoms/Bootstrap/MiniPager';
-import request from '../utils/request';
-import * as transforms from '../utils/transforms';
+import { Router } from '../routes';
+import * as recipeApi from '../api/recipe';
+
+const RECIPES_PER_PAGE = 12;
 
 class RecipesPage extends React.Component {
-  static async getInitialProps() {
+  static async getInitialProps({ query }) {
     let initialProps = {
       recipes: [],
+      hasNextPage: false,
+      hasPrevPage: false,
     };
 
-    // TODO: Move to API & run in parallel.
-
     try {
-      const response = await request
-        .get('/recipes')
-        .query({
-          'include': 'image,image.thumbnail',
-          'fields[recipes]': 'id,title,image',
-          'fields[categories]': 'name',
-          'fields[images]': 'thumbnail',
-          'fields[files]': 'url',
-          'sort': '-created',
-          'page[limit]': 24,
-        });
-
-      // Transform backend data into standardized frontend format.
-      initialProps.recipes = response.body.data.map(recipe => transforms.recipe(recipe));
+      const currentPage = query && query.page || 0;
+      initialProps = await recipeApi.getAll(RECIPES_PER_PAGE, currentPage * RECIPES_PER_PAGE);
     } catch (e) {
-      // TODO.
+      console.error(e);
+      // TODO: Handle error properly.
     }
+
+    // TODO: Handle case when recipes is empty and it's the first page.
+    // TODO: Handle case when recipes is empty and it's not the first page.
 
     return initialProps;
   }
 
-  handleNextPageClick() {
-
-  }
-
-  handlePreviousPageClick() {
-
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
-    this.handleNextPageClick = this.handleNextPageClick.bind(this);
-  }
-
   render() {
-    const { recipes } = this.props;
+    const { recipes, hasPrevPage, hasNextPage } = this.props;
     return (
       <Layout>
-        <RecipesList recipes={recipes} cols={3} />
+        <RecipesList
+          recipes={recipes}
+          cols={3}
+        />
         <MiniPager
-          prevPageClick={this.handlePreviousPageClick}
-          nextPageClick={this.handleNextPageClick}
+          prevPageAllowed={hasPrevPage}
+          nextPageAllowed={hasNextPage}
         />
       </Layout>
     );
