@@ -12,7 +12,7 @@ Live demo is available at [https://contenta-react-next.now.sh](https://contenta-
     make up
     ```
 
-2. Profit! You can open the application on `http://app.docker.localhost`.
+2. Profit! You can open the application on `http://app.docker.localhost`
 
 # What's included?
 
@@ -24,7 +24,7 @@ Live demo is available at [https://contenta-react-next.now.sh](https://contenta-
 6. Live reload for all `js` / `css` changes.
 7. `Redux` (with devtools) + `Redux Saga` configured.
 8. Basic `robots.txt`.
-9. Beautiful animation for pages transition.
+9. Nice animation for pages transition.
 
 # Command list
 
