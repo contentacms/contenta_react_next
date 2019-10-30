@@ -10,10 +10,10 @@ services:
       - 'traefik.frontend.rule=Host:app.${PROJECT_BASE_URL}'
     expose:
       - "3000"
+    command: yarn start:dev
 
   traefik:
-    image: traefik
-    restart: unless-stopped
+    image: traefik:$TRAEFIK_TAG
     command: -c /dev/null --web --docker --logLevel=INFO
     ports:
       - '80:80'
